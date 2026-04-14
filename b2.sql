@@ -1,17 +1,20 @@
-DROP TABLE IF EXISTS CUSTOMERS; 
+-- Tắt kiểm tra khóa ngoại để tránh lỗi khi DROP
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS WALLETS;
+DROP TABLE IF EXISTS CUSTOMERS;
+-- Bật lại kiểm tra khóa ngoại
+SET FOREIGN_KEY_CHECKS = 1;
+
 
 CREATE TABLE CUSTOMERS (
-    customer_id INT PRIMARY KEY,
-    full_name VARCHAR(100),
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    full_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
-    age INT,
-    
-    CONSTRAINT unique_email UNIQUE (email),
-    CONSTRAINT check_age CHECK (age > 0)
+    age INT 
 );
 
 ALTER TABLE CUSTOMERS 
-MODIFY email VARCHAR(100) NOT NULL;
+ADD CONSTRAINT unique_email UNIQUE (email);
 
 ALTER TABLE CUSTOMERS 
 ADD CONSTRAINT check_age CHECK (age > 0);
